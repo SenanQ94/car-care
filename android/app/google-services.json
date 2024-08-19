@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "768351396377",
+    "firebase_url": "https://linexo-demo-default-rtdb.firebaseio.com",
+    "project_id": "linexo-demo",
+    "storage_bucket": "linexo-demo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768351396377:android:6355b157ca6d65d38a8088",
+        "android_client_info": {
+          "package_name": "com.example.linexo_demo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2k_VkI3uhaZktUonxWenET1Ez3XyQnlQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

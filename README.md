@@ -2,6 +2,10 @@
 
 Welcome to the **Car Care** app, a comprehensive platform designed to simplify car maintenance and insurance management. Built with **Flutter** and powered by **Firebase Authentication**, **Cloud Firestore**, and **Cloud Storage**, the app offers a secure and user-friendly experience.
 
+## App Demo
+
+https://github.com/user-attachments/assets/3bb4c250-0a07-489e-87b4-589e61288f6b
+
 ## Key Features
 
 ### 🔒 Secure Authentication

@@ -10,7 +10,7 @@ https://github.com/user-attachments/assets/3bb4c250-0a07-489e-87b4-589e61288f6b
 
 ### 🔒 Secure Authentication
 - **Firebase Authentication** ensures secure login and registration.
-- Users can sign in using **email/password** or third-party providers.
+- Users can sign in using **email/password**.
 
 ### 🛠️ Car Services & Offers
 - Explore **exclusive offers** on car repairs, insurance packages, and more.

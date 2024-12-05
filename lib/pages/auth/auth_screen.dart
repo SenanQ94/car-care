@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:linexo_demo/pages/auth/login_guest.dart';
 import 'package:linexo_demo/pages/auth/login_user.dart';
+import 'package:provider/provider.dart';
 
 import '../../helpers/app_localizations.dart';
-
+import '../../providers/language_provider.dart';
+import '../../providers/theme_provider.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -16,6 +18,8 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final languageProvider = Provider.of<LanguageProvider>(context);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -25,8 +29,14 @@ class _AuthScreenState extends State<AuthScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40),
-                child: Image.asset('assets/images/logo.png', height: 120, semanticLabel: localizations.translate('logo_alt_text')),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40),
+                child: Image.asset(
+                    themeProvider.isDarkMode
+                        ? 'assets/images/logo-neg.png'
+                        : 'assets/images/logo.png',
+                    height: 120,
+                    semanticLabel: localizations.translate('logo_alt_text')),
               ),
               LoginCard(
                 title: localizations.translate('login_user_title'),
@@ -53,6 +63,51 @@ class _AuthScreenState extends State<AuthScreen> {
                   );
                 },
               ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: const Icon(Icons.language_outlined),
+                      title: DropdownButton<String>(
+                        value: languageProvider.locale.languageCode,
+                        underline: Container(),
+                        isExpanded: false,
+                        items: const [
+                          DropdownMenuItem(
+                            value: 'de',
+                            child: Text('Deutsch'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'en',
+                            child: Text('English'),
+                          ),
+                        ],
+                        onChanged: (String? newValue) {
+                          if (newValue != null) {
+                            languageProvider.setLanguage(newValue);
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(AppLocalizations.of(context).translate('dark_mode')),
+                      trailing: IconButton(
+                        icon: Icon(themeProvider.isDarkMode
+                            ? Icons.dark_mode
+                            : Icons.light_mode),
+                        onPressed: () => themeProvider.toggleTheme(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
@@ -60,7 +115,6 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 }
-
 
 class LoginCard extends StatelessWidget {
   final String title;
@@ -83,7 +137,6 @@ class LoginCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Row(
-
             children: [
               CircleAvatar(
                 radius: 20,

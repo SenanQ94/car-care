@@ -8,12 +8,12 @@ class ServiceCard extends StatelessWidget {
   final VoidCallback? onTap;
 
   const ServiceCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.subtitle,
     required this.icon,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class ServiceCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: theme.textTheme.bodyText1!.copyWith(
+                  style: theme.textTheme.bodyLarge!.copyWith(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                   ),
@@ -62,7 +62,7 @@ class ServiceCard extends StatelessWidget {
                 const SizedBox(height: 8.0),
                 Text(
                   subtitle,
-                  style: theme.textTheme.bodyText2!.copyWith(
+                  style: theme.textTheme.bodyMedium!.copyWith(
                     fontSize: 10,
                   ),
                 ),

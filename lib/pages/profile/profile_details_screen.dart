@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import '../../providers/auth_service.dart';
 
 class ProfileDetailsScreen extends StatefulWidget {
@@ -25,6 +25,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> with Single
 
   String? _errorMessage;
   bool _isLoading = true;
+  bool _isSaving = false;
 
   @override
   void initState() {
@@ -63,37 +64,66 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> with Single
 
   Future<void> _saveGeneralData() async {
     final authService = Provider.of<AuthService>(context, listen: false);
+    setState(() {
+      _isSaving = true;
+    });
     try {
       await authService.saveGeneralData(_generalData);
+      await _fetchUserData();
+      Fluttertoast.showToast(msg: 'General data saved successfully!', backgroundColor: Colors.green);
     } catch (e) {
       setState(() {
         _errorMessage = 'Error saving general data.';
+      });
+      Fluttertoast.showToast(msg: _errorMessage!, backgroundColor: Colors.red);
+    } finally {
+      setState(() {
+        _isSaving = false;
       });
     }
   }
 
   Future<void> _saveAddressData() async {
     final authService = Provider.of<AuthService>(context, listen: false);
+    setState(() {
+      _isSaving = true;
+    });
     try {
       await authService.saveAddressData(_addressData);
+      await _fetchUserData();
+      Fluttertoast.showToast(msg: 'Address data saved successfully!', backgroundColor: Colors.green);
     } catch (e) {
       setState(() {
         _errorMessage = 'Error saving address data.';
+      });
+      Fluttertoast.showToast(msg: _errorMessage!, backgroundColor: Colors.red);
+    } finally {
+      setState(() {
+        _isSaving = false;
       });
     }
   }
 
   Future<void> _savePhoneData() async {
     final authService = Provider.of<AuthService>(context, listen: false);
+    setState(() {
+      _isSaving = true; // Start loading indicator
+    });
     try {
       await authService.savePhoneData(_phoneData);
+      await _fetchUserData();
+      Fluttertoast.showToast(msg: 'Phone data saved successfully!', backgroundColor: Colors.green);
     } catch (e) {
       setState(() {
         _errorMessage = 'Error saving phone data.';
       });
+      Fluttertoast.showToast(msg: _errorMessage!, backgroundColor: Colors.red);
+    } finally {
+      setState(() {
+        _isSaving = false;
+      });
     }
   }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -129,12 +159,20 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> with Single
             ],
           ),
         ),
-        body: TabBarView(
-          controller: _tabController,
+        body: Stack(
           children: [
-            _buildGeneralTab(),
-            _buildAddressTab(),
-            _buildPhoneTab(),
+            TabBarView(
+              controller: _tabController,
+              children: [
+                _buildGeneralTab(),
+                _buildAddressTab(),
+                _buildPhoneTab(),
+              ],
+            ),
+            if (_isSaving) // Show loading indicator when saving
+              const Center(
+                child: CircularProgressIndicator(),
+              ),
           ],
         ),
       ),

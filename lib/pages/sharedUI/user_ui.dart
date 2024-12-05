@@ -7,6 +7,7 @@ class UserUIPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       appBar: AppBar(
@@ -18,14 +19,14 @@ class UserUIPage extends StatelessWidget {
           children: <Widget>[
             // Logo Image
             Image.asset(
-              'assets/images/logo.png',
+              isDarkTheme ? 'assets/images/logo-neg.png' :'assets/images/logo.png',
               width: 100,
               height: 100,
             ),
             const SizedBox(height: 20),
             // Message
             Text(
-              localizations.translate('user_message'), // Use localization
+              localizations.translate('user_message'),
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black54),
             ),

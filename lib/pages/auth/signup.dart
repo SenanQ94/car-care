@@ -11,39 +11,40 @@ class SignupUserPage extends StatefulWidget {
 }
 
 class _SignupUserPageState extends State<SignupUserPage> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
   final TextEditingController kundennummerController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   bool _isPasswordVisible = false;
   bool _isSignupEnabled = false;
 
   @override
   void initState() {
     super.initState();
-    emailController.addListener(_updateButtonState);
-    passwordController.addListener(_updateButtonState);
+    _emailController.addListener(_updateButtonState);
+    _passwordController.addListener(_updateButtonState);
     kundennummerController.addListener(_updateButtonState);
   }
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     kundennummerController.dispose();
     super.dispose();
   }
 
   void _updateButtonState() {
     setState(() {
-      _isSignupEnabled = emailController.text.isNotEmpty &&
-          passwordController.text.isNotEmpty &&
+      _isSignupEnabled = _emailController.text.isNotEmpty &&
+          _passwordController.text.isNotEmpty &&
           kundennummerController.text.isNotEmpty;
     });
   }
 
   Future<void> _signup() async {
-    final email = emailController.text.trim();
-    final password = passwordController.text.trim();
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
     final kundennummer = kundennummerController.text.trim();
     final authService = Provider.of<AuthService>(context, listen: false);
 
@@ -88,7 +89,7 @@ class _SignupUserPageState extends State<SignupUserPage> {
               ),
               const SizedBox(height: 20),
               TextField(
-                controller: emailController,
+                controller: _emailController,
                 decoration: const InputDecoration(
                   labelText: 'E-Mail',
                   border: OutlineInputBorder(),
@@ -97,7 +98,7 @@ class _SignupUserPageState extends State<SignupUserPage> {
               ),
               const SizedBox(height: 20),
               TextField(
-                controller: passwordController,
+                controller: _passwordController,
                 obscureText: !_isPasswordVisible,
                 decoration: InputDecoration(
                   labelText: 'Passwort',

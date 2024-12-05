@@ -153,7 +153,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   const SizedBox(height: 20),
                   MyCard(
-                    icon: Icons.pedal_bike_outlined,
+                    icon: Icons.directions_car_outlined,
                     text: AppLocalizations.of(context).translate('my_bikes'),
                     onTap: () {
                       _navigateBasedOnRole(context, userRole!);

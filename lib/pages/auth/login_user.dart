@@ -13,8 +13,8 @@ class LoginUserPage extends StatefulWidget {
 }
 
 class _LoginUserPageState extends State<LoginUserPage> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final TextEditingController forgotPasswordEmailController = TextEditingController();
   bool _isPasswordVisible = false;
   bool _isLoginEnabled = false;
@@ -23,27 +23,27 @@ class _LoginUserPageState extends State<LoginUserPage> {
   @override
   void initState() {
     super.initState();
-    emailController.addListener(_updateButtonState);
-    passwordController.addListener(_updateButtonState);
+    _emailController.addListener(_updateButtonState);
+    _passwordController.addListener(_updateButtonState);
   }
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     forgotPasswordEmailController.dispose();
     super.dispose();
   }
 
   void _updateButtonState() {
     setState(() {
-      _isLoginEnabled = emailController.text.isNotEmpty && passwordController.text.isNotEmpty;
+      _isLoginEnabled = _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty;
     });
   }
 
   Future<void> _login() async {
-    final email = emailController.text.trim();
-    final password = passwordController.text.trim();
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
     final authService = Provider.of<AuthService>(context, listen: false);
 
     final error = await authService.loginUser(email, password);
@@ -102,7 +102,7 @@ class _LoginUserPageState extends State<LoginUserPage> {
                 ),
                 const SizedBox(height: 20),
                 TextField(
-                  controller: emailController,
+                  controller: _emailController,
                   decoration: InputDecoration(
                     labelText: localizations.translate('email'),
                     border: const OutlineInputBorder(),
@@ -111,7 +111,7 @@ class _LoginUserPageState extends State<LoginUserPage> {
                 ),
                 const SizedBox(height: 20),
                 TextField(
-                  controller: passwordController,
+                  controller: _passwordController,
                   obscureText: !_isPasswordVisible,
                   decoration: InputDecoration(
                     labelText: localizations.translate('password'),

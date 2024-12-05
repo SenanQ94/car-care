@@ -7,6 +7,8 @@ class GuestUIPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(localizations.translate('guest_page_title')),
@@ -17,8 +19,8 @@ class GuestUIPage extends StatelessWidget {
           children: <Widget>[
 
             Image.asset(
-              'assets/images/logo.png',
-              width: 100,
+              isDarkTheme ? 'assets/images/logo-neg.png' :'assets/images/logo.png',
+              width: double.infinity,
               height: 100,
             ),
             const SizedBox(height: 20),
@@ -26,7 +28,7 @@ class GuestUIPage extends StatelessWidget {
             Text(
               localizations.translate('guest_message'),
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black54),
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: 20),
             Text(

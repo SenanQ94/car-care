@@ -32,14 +32,14 @@ class InfoCard extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: theme.textTheme.headline6?.color,
+                color: theme.textTheme.titleLarge?.color,
               ),
             ),
             subtitle: Text(
               description,
               style: TextStyle(
                 fontSize: 12,
-                color: theme.textTheme.subtitle1?.color,
+                color: theme.textTheme.titleMedium?.color,
               ),
             ),
           ),

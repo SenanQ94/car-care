@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ContentCard extends StatelessWidget {
   final String imagePath;
@@ -32,9 +33,11 @@ class ContentCard extends StatelessWidget {
                 if (progress == null) {
                   return child;
                 } else {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(theme.primaryColor),
+                  return Shimmer.fromColors(
+                    baseColor: Colors.grey,
+                    highlightColor: Colors.grey[100]!,
+                    child: Container(
+                      color: Colors.white,
                     ),
                   );
                 }
@@ -45,7 +48,6 @@ class ContentCard extends StatelessWidget {
                 );
               },
             ),
-            // Overlay for the title
             Positioned(
               bottom: 8,
               left: 8,
@@ -56,7 +58,7 @@ class ContentCard extends StatelessWidget {
                   fontSize: 12,
                   shadows: [
                     Shadow(
-                      offset: Offset(0, 1),
+                      offset: const Offset(0, 1),
                       blurRadius: 2,
                       color: Colors.black.withOpacity(0.5),
                     ),

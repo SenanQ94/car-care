@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'firebase_upload_service.dart';
 import 'helpers/app_localizations.dart';
 import 'helpers/config.dart';
 
@@ -22,6 +23,8 @@ void main() async {
 
   final LanguageProvider languageProvider = LanguageProvider();
   await languageProvider.setDefaultLanguage();
+
+  //await uploadCategoryArticlesToFirebase();
 
   runApp(
     MultiProvider(

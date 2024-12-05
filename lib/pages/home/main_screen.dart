@@ -12,6 +12,7 @@ import '../../helpers/app_localizations.dart';
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
+
   void _navigateBasedOnRole(BuildContext context, String userRole) {
     if (userRole == 'user') {
       Navigator.push(
@@ -29,6 +30,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context, listen: false);
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
 
     return FutureBuilder<String?>(
       future: authService.fetchUserRole(),
@@ -67,7 +69,7 @@ class MainScreen extends StatelessWidget {
                         titlePadding: const EdgeInsets.only(bottom: 4.0),
                         expandedTitleScale: 2,
                         title: Image.asset(
-                          'assets/images/logo.png',
+                          isDarkTheme ? 'assets/images/logo-neg.png' :'assets/images/logo.png',
                           height: 30,
                         ),
                       );
@@ -92,7 +94,7 @@ class MainScreen extends StatelessWidget {
                               child: ServiceCard(
                                 title: localization.translate('service_card_1_title'),
                                 subtitle: localization.translate('service_card_1_subtitle'),
-                                icon: Icons.pedal_bike,
+                                icon: Icons.directions_car_outlined,
                                 onTap: () => _navigateBasedOnRole(context, userRole!),
                               ),
                             ),

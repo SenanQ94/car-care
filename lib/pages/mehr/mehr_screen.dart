@@ -131,7 +131,7 @@ class MehrScreen extends StatelessWidget {
               children: [
                 Flexible(
                   child: MyCard(
-                    icon: Icons.pedal_bike_rounded,
+                    icon: Icons.directions_car_outlined,
                     text: localization.translate('advice_card'),
                     onTap: () {
                       Navigator.of(context).push(
